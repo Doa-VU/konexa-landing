@@ -1,63 +1,47 @@
 # Konexa domain architecture (soft launch)
 
-## Live in this project
+## Live
 
-| Host | Role |
-|------|------|
-| `https://konexa.space` | **Canonical** public marketing landing (this repo) |
-| `https://www.konexa.space` | Permanent redirect → `https://konexa.space` |
+| Host | Role | Project |
+|------|------|---------|
+| `https://konexa.space` | **Canonical** public marketing landing | `konexa-landing` |
+| `https://www.konexa.space` | Permanent redirect → `https://konexa.space` | `konexa-landing` |
 
-## Reserved — do NOT point at marketing landing
+## App bridge (separate Vercel project — never marketing)
 
-| Host | Future role |
-|------|-------------|
-| `https://app.konexa.space` | App web bridge / Universal Links |
+| Host | Role | Project |
+|------|------|---------|
+| `https://app.konexa.space` | App HTTPS bridge / Universal Links / PayU return UX | `konexa-app-bridge` |
 
-Expected app routes (Expo + future web bridge):
+Routes:
 
 - `https://app.konexa.space/join?ref=<AMBASSADOR_CODE>`
 - `https://app.konexa.space/auth/callback`
 - `https://app.konexa.space/subscription-success`
 
-Deep link scheme (native app, not used as public marketing CTA):
+Native schemes (handoff from bridge):
 
 - `konexa://join?ref=<CODE>`
 - `konexa://auth/callback`
+- `konexa://subscription-success`
 
-## DNS notes (from Vercel inspect — 2026-08-09)
+## DNS
 
-Domains are attached to Vercel project **konexa-landing**.
-
-Until DNS propagates, SSL for the custom domain will not issue.
-
-**Required at your DNS provider (Vercel-recommended):**
+**Marketing (`konexa-landing`):**
 
 | Type | Name | Value |
 |------|------|--------|
-| `A` | `@` (`konexa.space`) | `76.76.21.21` |
+| `A` | `@` | `76.76.21.21` |
 | `A` | `www` | `76.76.21.21` |
 
-Optional alternative: point nameservers to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`.
+**App bridge (`konexa-app-bridge`) — do not point at marketing:**
 
-`www` → apex redirect is also configured in `vercel.json` once traffic hits Vercel.
-
-**Do not create yet:**
-
-| Type | Name | Notes |
+| Type | Name | Value |
 |------|------|--------|
-| — | `app` | Reserve for future app bridge — **never** point at marketing landing |
-
-Verify after DNS:
-
-```bash
-vercel domains verify konexa.space
-curl -I https://konexa.space
-curl -I https://www.konexa.space   # expect 308/301 → https://konexa.space
-```
+| `CNAME` | `app` | `cname.vercel-dns.com` (or value from `vercel domains add`) |
 
 ## CTA policy
 
-- Marketing CTAs on `konexa.space` use waitlist / `mailto:hello@konexa.space` until the app bridge is live.
-- After `app.konexa.space` ships, ambassador links should use  
-  `https://app.konexa.space/join?ref=<CODE>`  
-  (not `konexa://` in public web pages).
+- Marketing CTAs may stay waitlist/`mailto:` until closed test invites ship.
+- Ambassador public links **must** use `https://app.konexa.space/join?ref=<CODE>`.
+- PayU **notify** stays on Supabase; PayU **continue** prefers `https://app.konexa.space/subscription-success`.
