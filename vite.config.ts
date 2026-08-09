@@ -7,20 +7,22 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
-  // Force nitro on; do not hard-pin Cloudflare. Vercel detection still wins on deploy.
   nitro: true,
   vite: {
-    // Vite/Rolldown was mangling cross-chunk export names so the routes chunk
-    // imported the wrong symbols from the index chunk (React #321 + blank page).
-    esbuild: {
-      keepNames: true,
-    },
+    // Vite 8 / Rolldown currently remaps the wrong locals onto cross-chunk
+    // export names (e.g. export { u as require_react } where u is unrelated
+    // query code). That breaks client hydration with React #321 + blank page.
+    // Keep production JS unminified until the bundler bug is resolved upstream.
     build: {
+      minify: false,
       rollupOptions: {
         output: {
           minifyInternalExports: false,
         },
       },
+    },
+    esbuild: {
+      keepNames: true,
     },
   },
 });
