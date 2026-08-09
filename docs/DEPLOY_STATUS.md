@@ -11,9 +11,13 @@
 
 Symptom: cream blank screen + React minified `#321` (invalid hook call) after hydration.
 
-Cause: custom Vite React aliases/`ssr.noExternal` created **two React instances** in the Nitro SSR bundle.
+Root cause (final): client and SSR Vite environments emitted **different** `styles-*.css` hashes. SSR HTML linked a CSS URL that 404'd; hydration then mismatched on `<link href>` and wiped the page.
 
-Fix: restore `@lovable.dev/vite-tanstack-config` with `nitro: true` (React/TanStack dedupe, no hard aliases). Local SSR smoke returned homepage content; redeployed to production.
+Fix:
+1. Force both environments to `/assets/app.css` (`assetFileNames` + sync SSR CSS into public)
+2. Keep production JS unminified / `minifyInternalExports: false` (Vite 8 cross-chunk export hardening)
+
+Verified live: `/assets/app.css` → 200, React fiber attached, no console `#321`.
 
 Verified HTTP 200 + content:
 
