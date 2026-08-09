@@ -9,4 +9,18 @@ export default defineConfig({
   },
   // Force nitro on; do not hard-pin Cloudflare. Vercel detection still wins on deploy.
   nitro: true,
+  vite: {
+    // Vite/Rolldown was mangling cross-chunk export names so the routes chunk
+    // imported the wrong symbols from the index chunk (React #321 + blank page).
+    esbuild: {
+      keepNames: true,
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          minifyInternalExports: false,
+        },
+      },
+    },
+  },
 });
