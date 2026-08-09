@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+// Client/SSR Vite environments hash styles.css?url differently. vite.config
+// forces both to /assets/app.css so SSR <link> and client hydrate match.
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
