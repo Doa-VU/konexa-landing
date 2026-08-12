@@ -153,9 +153,15 @@ export const content = {
       submit: "Poproś o zaproszenie",
       success:
         "Otworzyliśmy Twoją skrzynkę e-mail do hello@konexa.space. Wyślij wiadomość, żebyśmy mogli dodać Cię do listy.",
-      privacy: "Wysyłając formularz akceptujesz politykę prywatności.",
+      privacy: "Wysyłając formularz akceptujesz",
+      privacyLink: "politykę prywatności",
     },
-    footer: { privacy: "Polityka prywatności", rights: "Wszelkie prawa zastrzeżone." },
+    footer: {
+      privacy: "Polityka prywatności",
+      support: "Wsparcie",
+      contact: "hello@konexa.space",
+      rights: "Wszelkie prawa zastrzeżone.",
+    },
   },
   en: {
     nav: { how: "How it works", why: "Why Konexa", faq: "FAQ", cta: "Request an invite" },
@@ -305,8 +311,14 @@ export const content = {
       submit: "Request an invite",
       success:
         "We opened your email client to hello@konexa.space. Send the message so we can add you to the list.",
-      privacy: "By submitting you accept our privacy policy.",
+      privacy: "By submitting you accept our",
+      privacyLink: "Privacy Policy",
     },
-    footer: { privacy: "Privacy policy", rights: "All rights reserved." },
+    footer: {
+      privacy: "Privacy Policy",
+      support: "Support",
+      contact: "hello@konexa.space",
+      rights: "All rights reserved.",
+    },
   },
 } as const;

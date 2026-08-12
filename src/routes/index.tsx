@@ -463,7 +463,16 @@ function Landing() {
               >
                 {t.form.submit}
               </Button>
-              <p className="text-xs text-primary-foreground/45">{t.form.privacy}</p>
+              <p className="text-xs text-primary-foreground/45">
+                {t.form.privacy}{" "}
+                <Link
+                  to="/privacy"
+                  className="underline underline-offset-2 transition-colors hover:text-primary-foreground/70"
+                >
+                  {t.form.privacyLink}
+                </Link>
+                .
+              </p>
             </form>
           )}
         </div>
@@ -478,9 +487,26 @@ function Landing() {
               © {new Date().getFullYear()} Konexa · konexa.space
             </span>
           </div>
-          <Link to="/privacy" className="shrink-0 transition-colors hover:text-foreground">
-            {t.footer.privacy}
-          </Link>
+          <div className="flex shrink-0 flex-wrap items-center justify-end gap-x-4 gap-y-1">
+            <Link
+              to="/privacy"
+              className="transition-colors hover:text-foreground"
+            >
+              {t.footer.privacy}
+            </Link>
+            <Link
+              to="/support"
+              className="transition-colors hover:text-foreground"
+            >
+              {t.footer.support}
+            </Link>
+            <a
+              href="mailto:hello@konexa.space"
+              className="transition-colors hover:text-foreground"
+            >
+              {t.footer.contact}
+            </a>
+          </div>
         </div>
       </footer>
     </main>
