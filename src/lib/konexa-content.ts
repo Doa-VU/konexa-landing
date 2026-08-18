@@ -12,6 +12,14 @@ export const content = {
       note: "Bez spamu. Zaproszenia wysyłamy falami.",
       stat: "350 miejsc w pierwszej fali",
     },
+    partners: {
+      kicker: "Partnerzy",
+      title: "Zaufani partnerzy biznesowi",
+      sub: "Współpracujemy z organizacjami, które wspierają profesjonalistów w inwestycjach, biznesie i codziennej pracy.",
+      slotTitle: "Twój brand tutaj",
+      slotBody: "Szukasz partnerstwa z Konexa? Napisz do nas.",
+      slotCta: "hello@konexa.space",
+    },
     problem: {
       kicker: "Problem",
       title: "Networking dziś działa przypadkiem",
@@ -173,6 +181,14 @@ export const content = {
       cta: "Request an invite",
       note: "No spam. Invitations go out in waves.",
       stat: "350 seats in the first wave",
+    },
+    partners: {
+      kicker: "Partners",
+      title: "Trusted business partners",
+      sub: "We work with organizations that support professionals in investing, business, and everyday work.",
+      slotTitle: "Your brand here",
+      slotBody: "Interested in partnering with Konexa? Get in touch.",
+      slotCta: "hello@konexa.space",
     },
     problem: {
       kicker: "The problem",

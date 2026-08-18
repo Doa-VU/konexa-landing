@@ -12,6 +12,9 @@ import { Label } from "@/components/ui/label";
 import { content, type Lang } from "@/lib/konexa-content";
 import { PhoneMock } from "@/components/PhoneMock";
 import logoUrl from "@/assets/konexa-logo.png";
+import partnerInvestments4you from "@/assets/partners/investments4you.png";
+import partnerCbridge from "@/assets/partners/cbridge.png";
+import partnerMieszkanicznik from "@/assets/partners/mieszkanicznik.png";
 import { absoluteUrl } from "@/lib/site";
 import {
   ArrowRight,
@@ -21,12 +24,34 @@ import {
   Handshake,
   LineChart,
   MousePointerClick,
+  Plus,
   Sailboat,
   ShieldCheck,
   Sparkles,
   Target,
   Users,
 } from "lucide-react";
+
+const PARTNERS = [
+  {
+    name: "Investments4You",
+    href: "https://www.facebook.com/groups/GrupaInvestments4you.biz/",
+    logo: partnerInvestments4you,
+    tone: "light" as const,
+  },
+  {
+    name: "cBridge Fund",
+    href: "https://cbridge.fund/",
+    logo: partnerCbridge,
+    tone: "light" as const,
+  },
+  {
+    name: "Stowarzyszenie Mieszkanicznik",
+    href: "https://www.mieszkanicznik.org.pl/",
+    logo: partnerMieszkanicznik,
+    tone: "light" as const,
+  },
+] as const;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -213,6 +238,57 @@ function Landing() {
           </div>
         </div>
       </section>
+
+      {/* Partners */}
+      <Section kicker={t.partners.kicker} title={t.partners.title} tone="muted">
+        <p className="-mt-4 mb-10 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          {t.partners.sub}
+        </p>
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
+          {PARTNERS.map((partner) => (
+            <li key={partner.name}>
+              <a
+                href={partner.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex h-28 items-center justify-center rounded-lg border border-border px-4 transition-all hover:border-brass/45 hover:shadow-lift sm:h-32 ${
+                  partner.tone === "dark"
+                    ? "bg-[#0a0a0a]"
+                    : "bg-card"
+                }`}
+                aria-label={`${partner.name} (opens in a new tab)`}
+              >
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="max-h-14 w-auto max-w-full object-contain sm:max-h-16"
+                  loading="lazy"
+                />
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              href="mailto:hello@konexa.space?subject=Konexa%20partnership"
+              className="group flex h-28 flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-brass/45 bg-brass/[0.06] px-3 text-center transition-all hover:border-brass hover:bg-brass/10 hover:shadow-lift sm:h-32 sm:px-4"
+              aria-label={t.partners.slotTitle}
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-brass/40 bg-background text-brass sm:h-8 sm:w-8">
+                <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.75} />
+              </span>
+              <span className="text-sm font-medium text-foreground">
+                {t.partners.slotTitle}
+              </span>
+              <span className="max-w-[12rem] text-[0.68rem] leading-snug text-muted-foreground sm:text-[0.7rem]">
+                {t.partners.slotBody}
+              </span>
+              <span className="text-[0.68rem] font-medium text-brass group-hover:underline sm:text-[0.7rem]">
+                {t.partners.slotCta}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </Section>
 
       {/* Problem */}
       <Section kicker={t.problem.kicker} title={t.problem.title}>
