@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Bell,
   BookOpen,
   Handshake,
   Home,
@@ -253,7 +252,11 @@ export function PhoneMock({ lang }: { lang: Lang }) {
           className="relative flex h-[540px] flex-col overflow-hidden rounded-[2.2rem] sm:h-[580px]"
           style={{ background: C.cream }}
         >
-          <div className="absolute left-1/2 top-[7px] z-30 h-[22px] w-[92px] -translate-x-1/2 rounded-full bg-black" />
+          {/* Dynamic Island sits over the navy status safe-area, not over screen content */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-[8px] z-30 h-[22px] w-[96px] -translate-x-1/2 rounded-full bg-black"
+          />
 
           <div className="relative z-10 flex min-h-0 flex-1 flex-col">
             <div key={`${screen}-${tick}`} className="phone-mock-screen flex min-h-0 flex-1 flex-col">
@@ -342,19 +345,39 @@ export function PhoneMock({ lang }: { lang: Lang }) {
 
 function AppNavBar({ title }: { title: string }) {
   return (
-    <div
-      className="flex h-11 shrink-0 items-center justify-between px-3"
-      style={{ background: C.navy }}
-    >
-      <div className="w-8" />
-      <p
-        className="font-display text-[0.95rem] tracking-tight"
-        style={{ color: C.cream }}
+    <div className="shrink-0" style={{ background: C.navy }}>
+      {/* Status / notch safe area — keeps app chrome below Dynamic Island */}
+      <div
+        className="relative flex items-end justify-between px-5 pb-1"
+        style={{ height: 34, color: C.cream }}
       >
-        {title}
-      </p>
-      <div className="flex w-8 items-center justify-end gap-1">
-        <LifeBuoy className="h-3.5 w-3.5" color={C.brass} strokeWidth={1.8} />
+        <span className="text-[0.58rem] font-semibold tabular-nums tracking-tight">
+          9:41
+        </span>
+        <div className="flex items-center gap-1 opacity-90">
+          <span
+            className="block h-[6px] w-[14px] rounded-[2px]"
+            style={{ border: "1px solid rgba(245,242,234,0.85)" }}
+          >
+            <span
+              className="mt-[1px] ml-[1px] block h-[3px] w-[9px] rounded-[1px]"
+              style={{ background: C.cream }}
+            />
+          </span>
+        </div>
+      </div>
+      {/* Title row — mirrors NavBar height after safe-area inset */}
+      <div className="flex h-10 items-center justify-between px-3">
+        <div className="w-7" />
+        <p
+          className="font-display text-[0.95rem] tracking-tight"
+          style={{ color: C.cream }}
+        >
+          {title}
+        </p>
+        <div className="flex w-7 items-center justify-end">
+          <LifeBuoy className="h-3.5 w-3.5" color={C.brass} strokeWidth={1.8} />
+        </div>
       </div>
     </div>
   );
@@ -382,7 +405,6 @@ function DiscoverUI({ t }: { t: (typeof copy)["pl"]["discover"] }) {
             {p}
           </span>
         ))}
-        <Bell className="ml-auto h-3.5 w-3.5 shrink-0" color={C.brass} />
       </div>
 
       <div className="relative mx-2.5 mb-1 min-h-0 flex-1">
