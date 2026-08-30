@@ -11,6 +11,9 @@ export const content = {
       cta: "Poproś o zaproszenie",
       note: "Bez spamu. Zaproszenia wysyłamy falami.",
       stat: "350 miejsc w pierwszej fali",
+      downloadLabel: "Pobierz aplikację",
+      appStoreBadge: "Pobierz w App Store",
+      playStoreBadge: "Pobierz w Google Play",
     },
     partners: {
       kicker: "Partnerzy",
@@ -181,6 +184,9 @@ export const content = {
       cta: "Request an invite",
       note: "No spam. Invitations go out in waves.",
       stat: "350 seats in the first wave",
+      downloadLabel: "Get the app",
+      appStoreBadge: "Download on the App Store",
+      playStoreBadge: "Get it on Google Play",
     },
     partners: {
       kicker: "Partners",

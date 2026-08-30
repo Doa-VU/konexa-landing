@@ -16,6 +16,7 @@ import partnerInvestments4you from "@/assets/partners/investments4you.png";
 import partnerCbridge from "@/assets/partners/cbridge.png";
 import partnerMieszkanicznik from "@/assets/partners/mieszkanicznik.png";
 import { absoluteUrl } from "@/lib/site";
+import { StoreBadges } from "@/components/StoreBadges";
 import {
   ArrowRight,
   Building2,
@@ -227,6 +228,15 @@ function Landing() {
               <span className="text-[0.72rem] text-primary-foreground/45 sm:text-xs">
                 {t.hero.note}
               </span>
+            </div>
+            <div className="mt-6 sm:mt-8">
+              <p className="mb-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-primary-foreground/40">
+                {t.hero.downloadLabel}
+              </p>
+              <StoreBadges
+                appStoreLabel={t.hero.appStoreBadge}
+                playStoreLabel={t.hero.playStoreBadge}
+              />
             </div>
             <div className="mt-8 inline-flex items-center gap-3 text-[0.8rem] text-primary-foreground/55 sm:mt-12 sm:text-sm">
               <span className="rule-brass" />
@@ -556,33 +566,40 @@ function Landing() {
 
       {/* Footer */}
       <footer className="px-5 py-10">
-        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex min-w-0 items-center gap-2">
-            <img src={logoUrl} alt="" className="h-7 w-7 shrink-0 object-contain" />
-            <span className="truncate">
-              © {new Date().getFullYear()} Konexa · konexa.space
-            </span>
+        <div className="mx-auto flex max-w-5xl flex-col gap-6">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex min-w-0 items-center gap-2">
+              <img src={logoUrl} alt="" className="h-7 w-7 shrink-0 object-contain" />
+              <span className="truncate">
+                © {new Date().getFullYear()} Konexa · konexa.space
+              </span>
+            </div>
+            <div className="flex shrink-0 flex-wrap items-center justify-end gap-x-4 gap-y-1">
+              <Link
+                to="/privacy"
+                className="transition-colors hover:text-foreground"
+              >
+                {t.footer.privacy}
+              </Link>
+              <Link
+                to="/support"
+                className="transition-colors hover:text-foreground"
+              >
+                {t.footer.support}
+              </Link>
+              <a
+                href="mailto:hello@konexa.space"
+                className="transition-colors hover:text-foreground"
+              >
+                {t.footer.contact}
+              </a>
+            </div>
           </div>
-          <div className="flex shrink-0 flex-wrap items-center justify-end gap-x-4 gap-y-1">
-            <Link
-              to="/privacy"
-              className="transition-colors hover:text-foreground"
-            >
-              {t.footer.privacy}
-            </Link>
-            <Link
-              to="/support"
-              className="transition-colors hover:text-foreground"
-            >
-              {t.footer.support}
-            </Link>
-            <a
-              href="mailto:hello@konexa.space"
-              className="transition-colors hover:text-foreground"
-            >
-              {t.footer.contact}
-            </a>
-          </div>
+          <StoreBadges
+            appStoreLabel={t.hero.appStoreBadge}
+            playStoreLabel={t.hero.playStoreBadge}
+            className="justify-start [&_a]:focus-visible:ring-offset-background"
+          />
         </div>
       </footer>
     </main>
