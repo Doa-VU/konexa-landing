@@ -473,133 +473,175 @@ function Landing() {
         </Accordion>
       </Section>
 
-      {/* Waitlist */}
-      <section id="waitlist" className="bg-navy-deep px-5 py-20 text-primary-foreground sm:py-28">
-        <div className="mx-auto max-w-5xl">
+      {/* Join / waitlist */}
+      <section
+        id="waitlist"
+        className="relative overflow-hidden bg-navy-deep px-5 py-20 text-primary-foreground sm:py-28"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full opacity-[0.14] blur-3xl"
+          style={{ background: "var(--gradient-brass)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, oklch(0.655 0.093 78 / 0.45), transparent)",
+          }}
+        />
+        <div className="relative mx-auto max-w-5xl">
           <p className="text-[0.7rem] font-medium uppercase tracking-[0.28em] text-brass-soft">
             {t.form.kicker}
           </p>
-          <h2 className="mt-4 text-3xl sm:text-4xl">{t.form.title}</h2>
-          <p className="mt-3 max-w-lg text-sm text-primary-foreground/65">{t.form.sub}</p>
 
-          {sent ? (
-            <div className="mt-10 flex max-w-lg items-center gap-3 rounded-lg border border-brass/40 bg-primary-foreground/5 p-6 text-sm">
-              <Check className="h-5 w-5 shrink-0 text-brass" />
-              {t.form.success}
-            </div>
-          ) : (
-            <form onSubmit={onSubmit} className="mt-10 max-w-lg space-y-5">
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-primary-foreground/80">
-                  {t.form.email}
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  maxLength={255}
-                  autoComplete="email"
-                  placeholder="name@company.com"
-                  className="border-primary-foreground/20 bg-primary-foreground/5 text-primary-foreground placeholder:text-primary-foreground/35"
-                />
-              </div>
-              <div className="space-y-2">
-                <span className="text-sm text-primary-foreground/80">{t.form.role}</span>
-                <div className="flex flex-wrap gap-2">
-                  {t.form.roles.map((r, i) => (
-                    <button
-                      key={r}
-                      type="button"
-                      onClick={() => setRoleIdx(i)}
-                      className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
-                        roleIdx === i
-                          ? "border-brass bg-brass/15 text-brass-soft"
-                          : "border-primary-foreground/20 text-primary-foreground/65 hover:border-primary-foreground/40"
-                      }`}
-                    >
-                      {r}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="space-y-2">
-                <span className="text-sm text-primary-foreground/80">{t.form.lang}</span>
-                <div className="flex gap-2">
-                  {(["pl", "en"] as Lang[]).map((l) => (
-                    <button
-                      key={l}
-                      type="button"
-                      onClick={() => setPrefLang(l)}
-                      className={`rounded-full border px-3.5 py-1.5 text-sm uppercase transition-colors ${
-                        prefLang === l
-                          ? "border-brass bg-brass/15 text-brass-soft"
-                          : "border-primary-foreground/20 text-primary-foreground/65 hover:border-primary-foreground/40"
-                      }`}
-                    >
-                      {l}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full bg-brass text-accent-foreground hover:bg-brass-soft sm:w-auto"
-              >
-                {t.form.submit}
-              </Button>
-              <p className="text-xs text-primary-foreground/45">
-                {t.form.privacy}{" "}
-                <Link
-                  to="/privacy"
-                  className="underline underline-offset-2 transition-colors hover:text-primary-foreground/70"
-                >
-                  {t.form.privacyLink}
-                </Link>
-                .
+          <div className="mt-8 grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-16">
+            <div>
+              <h2 className="font-display text-3xl leading-tight tracking-tight sm:text-4xl">
+                {t.form.title}
+              </h2>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-primary-foreground/65">
+                {t.form.sub}
               </p>
-            </form>
-          )}
+
+              {sent ? (
+                <div className="mt-10 flex max-w-lg items-center gap-3 border border-brass/40 bg-primary-foreground/[0.04] p-6 text-sm">
+                  <Check className="h-5 w-5 shrink-0 text-brass" />
+                  {t.form.success}
+                </div>
+              ) : (
+                <form onSubmit={onSubmit} className="mt-10 max-w-lg space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-primary-foreground/80">
+                      {t.form.email}
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      maxLength={255}
+                      autoComplete="email"
+                      placeholder="name@company.com"
+                      className="h-11 border-primary-foreground/20 bg-primary-foreground/[0.04] text-primary-foreground placeholder:text-primary-foreground/35 focus-visible:border-brass/60 focus-visible:ring-brass/30"
+                    />
+                  </div>
+                  <div className="space-y-2.5">
+                    <span className="text-sm text-primary-foreground/80">
+                      {t.form.role}
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {t.form.roles.map((r, i) => (
+                        <button
+                          key={r}
+                          type="button"
+                          onClick={() => setRoleIdx(i)}
+                          className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
+                            roleIdx === i
+                              ? "border-brass bg-brass/15 text-brass-soft"
+                              : "border-primary-foreground/20 text-primary-foreground/65 hover:border-primary-foreground/40"
+                          }`}
+                        >
+                          {r}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2.5">
+                    <span className="text-sm text-primary-foreground/80">
+                      {t.form.lang}
+                    </span>
+                    <div className="flex gap-2">
+                      {(["pl", "en"] as Lang[]).map((l) => (
+                        <button
+                          key={l}
+                          type="button"
+                          onClick={() => setPrefLang(l)}
+                          className={`rounded-full border px-3.5 py-1.5 text-sm uppercase transition-colors ${
+                            prefLang === l
+                              ? "border-brass bg-brass/15 text-brass-soft"
+                              : "border-primary-foreground/20 text-primary-foreground/65 hover:border-primary-foreground/40"
+                          }`}
+                        >
+                          {l}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-3 pt-1">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full bg-brass text-accent-foreground shadow-lift hover:bg-brass-soft sm:w-auto"
+                    >
+                      {t.form.submit}
+                      <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                    <p className="text-xs text-primary-foreground/45">
+                      {t.form.privacy}{" "}
+                      <Link
+                        to="/privacy"
+                        className="underline underline-offset-2 transition-colors hover:text-primary-foreground/70"
+                      >
+                        {t.form.privacyLink}
+                      </Link>
+                      .
+                    </p>
+                  </div>
+                </form>
+              )}
+            </div>
+
+            <aside className="lg:border-l lg:border-primary-foreground/10 lg:pl-16">
+              <div className="flex items-center gap-3">
+                <span className="rule-brass" />
+                <p className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-primary-foreground/45">
+                  {t.form.downloadLabel}
+                </p>
+              </div>
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-primary-foreground/60">
+                {t.form.downloadSub}
+              </p>
+              <StoreBadges
+                appStoreLabel={t.hero.appStoreBadge}
+                playStoreLabel={t.hero.playStoreBadge}
+                className="mt-6"
+              />
+            </aside>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="px-5 py-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-6">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex min-w-0 items-center gap-2">
-              <img src={logoUrl} alt="" className="h-7 w-7 shrink-0 object-contain" />
-              <span className="truncate">
-                © {new Date().getFullYear()} Konexa · konexa.space
-              </span>
-            </div>
-            <div className="flex shrink-0 flex-wrap items-center justify-end gap-x-4 gap-y-1">
-              <Link
-                to="/privacy"
-                className="transition-colors hover:text-foreground"
-              >
-                {t.footer.privacy}
-              </Link>
-              <Link
-                to="/support"
-                className="transition-colors hover:text-foreground"
-              >
-                {t.footer.support}
-              </Link>
-              <a
-                href="mailto:hello@konexa.space"
-                className="transition-colors hover:text-foreground"
-              >
-                {t.footer.contact}
-              </a>
-            </div>
+        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex min-w-0 items-center gap-2">
+            <img src={logoUrl} alt="" className="h-7 w-7 shrink-0 object-contain" />
+            <span className="truncate">
+              © {new Date().getFullYear()} Konexa · konexa.space
+            </span>
           </div>
-          <StoreBadges
-            appStoreLabel={t.hero.appStoreBadge}
-            playStoreLabel={t.hero.playStoreBadge}
-            className="justify-start [&_a]:focus-visible:ring-offset-background"
-          />
+          <div className="flex shrink-0 flex-wrap items-center justify-end gap-x-4 gap-y-1">
+            <Link
+              to="/privacy"
+              className="transition-colors hover:text-foreground"
+            >
+              {t.footer.privacy}
+            </Link>
+            <Link
+              to="/support"
+              className="transition-colors hover:text-foreground"
+            >
+              {t.footer.support}
+            </Link>
+            <a
+              href="mailto:hello@konexa.space"
+              className="transition-colors hover:text-foreground"
+            >
+              {t.footer.contact}
+            </a>
+          </div>
         </div>
       </footer>
     </main>

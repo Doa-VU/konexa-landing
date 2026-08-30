@@ -166,6 +166,8 @@ export const content = {
         "Otworzyliśmy Twoją skrzynkę e-mail do hello@konexa.space. Wyślij wiadomość, żebyśmy mogli dodać Cię do listy.",
       privacy: "Wysyłając formularz akceptujesz",
       privacyLink: "politykę prywatności",
+      downloadLabel: "Pobierz aplikację",
+      downloadSub: "Masz już zaproszenie? Zainstaluj Konexa i zaloguj się.",
     },
     footer: {
       privacy: "Polityka prywatności",
@@ -335,6 +337,8 @@ export const content = {
         "We opened your email client to hello@konexa.space. Send the message so we can add you to the list.",
       privacy: "By submitting you accept our",
       privacyLink: "Privacy Policy",
+      downloadLabel: "Get the app",
+      downloadSub: "Already invited? Install Konexa and sign in.",
     },
     footer: {
       privacy: "Privacy Policy",
