@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState, type FormEvent } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -54,29 +54,52 @@ const PARTNERS = [
   },
 ] as const;
 
-export const Route = createFileRoute("/")({
-  head: () => ({
+function resolveLang(value: unknown): Lang {
+  return value === "en" ? "en" : "pl";
+}
+
+function landingHead(lang: Lang) {
+  const seo = content[lang].seo;
+  const locale = lang === "en" ? "en_US" : "pl_PL";
+  const alternate = lang === "en" ? "pl_PL" : "en_US";
+  const pageUrl = lang === "en" ? absoluteUrl("/?lang=en") : absoluteUrl("/");
+
+  return {
     meta: [
-      { title: "Konexa — Prywatny klub networkingowy | Zaproszenia" },
-      {
-        name: "description",
-        content:
-          "Konexa łączy zweryfikowanych profesjonalistów: nieruchomości, giełda i krypto, biznes, pasje. Pierwsze 350 miejsc, tylko z zaproszenia. Zapisz się na listę.",
-      },
-      { property: "og:title", content: "Konexa — Prywatny klub networkingowy" },
-      {
-        property: "og:description",
-        content:
-          "Prawdziwi ludzie, prawdziwe okazje. Poznaj ludzi, z którymi zrobisz realny deal. Dołącz do listy oczekujących.",
-      },
+      { title: seo.title },
+      { name: "description", content: seo.description },
+      { property: "og:title", content: seo.ogTitle },
+      { property: "og:description", content: seo.description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: absoluteUrl("/") },
+      { property: "og:url", content: pageUrl },
       { property: "og:image", content: absoluteUrl("/konexa-logo.png") },
+      { property: "og:locale", content: locale },
+      { property: "og:locale:alternate", content: alternate },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: seo.ogTitle },
+      { name: "twitter:description", content: seo.description },
       { name: "twitter:image", content: absoluteUrl("/konexa-logo.png") },
     ],
-    links: [{ rel: "canonical", href: absoluteUrl("/") }],
+    links: [{ rel: "canonical", href: pageUrl }],
+  };
+}
+
+type LandingSearch = {
+  lang?: Lang;
+};
+
+export const Route = createFileRoute("/")({
+  validateSearch: (search: Record<string, unknown>): LandingSearch => {
+    const raw = search["lang"];
+    if (raw === "en") return { lang: "en" };
+    if (raw === "pl") return { lang: "pl" };
+    return {};
+  },
+  loaderDeps: ({ search }) => ({
+    lang: resolveLang(search.lang),
   }),
+  loader: ({ deps }) => deps,
+  head: ({ loaderData }) => landingHead(loaderData?.lang ?? "pl"),
   component: Landing,
 });
 
@@ -115,11 +138,30 @@ function Section({
 }
 
 function Landing() {
-  const [lang, setLang] = useState<Lang>("pl");
+  const navigate = useNavigate({ from: Route.fullPath });
+  const { lang: searchLang } = Route.useSearch();
+  const lang = resolveLang(searchLang);
   const t = content[lang];
   const [sent, setSent] = useState(false);
   const [roleIdx, setRoleIdx] = useState(0);
-  const [prefLang, setPrefLang] = useState<Lang>("pl");
+  const [prefLang, setPrefLang] = useState<Lang>(lang);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  const setLang = (next: Lang) => {
+    void navigate({
+      search: (prev: LandingSearch): LandingSearch => {
+        if (next === "pl") {
+          const { lang: _omit, ...rest } = prev;
+          return rest;
+        }
+        return { ...prev, lang: next };
+      },
+      replace: true,
+    });
+  };
 
   const scrollToForm = () => {
     document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" });

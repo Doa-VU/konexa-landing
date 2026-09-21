@@ -1,7 +1,19 @@
 export type Lang = "pl" | "en";
 
+export type LandingSeo = {
+  title: string;
+  ogTitle: string;
+  description: string;
+};
+
 export const content = {
   pl: {
+    seo: {
+      title: "Konexa — Prywatny klub networkingowy",
+      ogTitle: "Konexa — Prywatny klub",
+      description:
+        "Prawdziwi ludzie, prawdziwe okazje. Poznaj ludzi, z którymi zrobisz realny deal lub nawiążesz przyjaźń.",
+    } satisfies LandingSeo,
     nav: { how: "Jak to działa", why: "Dlaczego Konexa", faq: "FAQ", cta: "Poproś o zaproszenie" },
     hero: {
       eyebrow: "Klub tylko z zaproszenia · Na całym świecie",
@@ -156,7 +168,7 @@ export const content = {
     form: {
       kicker: "Dołącz",
       title: "Poproś o zaproszenie",
-      sub: "Zostaw kontakt — odezwiemy się, gdy zwolni się miejsce w Twoim obszarze.",
+      sub: "Zostaw kontakt — odezwiemy się w ciągu 24 godzin.",
       email: "Adres e-mail",
       role: "Obszar zainteresowań",
       roles: ["Nieruchomości", "Giełda i krypto", "Biznes", "Pasje"],
@@ -177,6 +189,12 @@ export const content = {
     },
   },
   en: {
+    seo: {
+      title: "Konexa — Private networking club",
+      ogTitle: "Konexa — Private club",
+      description:
+        "Real people, real opportunities. Meet people you'll do real deals with — or build genuine friendships.",
+    } satisfies LandingSeo,
     nav: { how: "How it works", why: "Why Konexa", faq: "FAQ", cta: "Request an invite" },
     hero: {
       eyebrow: "Invite-only club · Worldwide",
@@ -327,7 +345,7 @@ export const content = {
     form: {
       kicker: "Join",
       title: "Request an invite",
-      sub: "Leave your details — we'll reach out when a seat opens in your focus area.",
+      sub: "Leave your details — we'll reply within 24 hours.",
       email: "Email address",
       role: "Focus area",
       roles: ["Real estate", "Stocks & crypto", "Business", "Personal interest"],
