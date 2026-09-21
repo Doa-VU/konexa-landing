@@ -83,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Prawdziwi ludzie, prawdziwe okazje. Poznaj ludzi, z którymi zrobisz realny deal lub nawiążesz przyjaźń.",
+          "Prawdziwi ludzie, prawdziwe okazje. Poznaj ludzi z którymi zrobisz realny deal lub nawiążesz przyjaźń.",
       },
       { property: "og:site_name", content: "Konexa" },
       { property: "og:type", content: "website" },

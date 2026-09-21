@@ -10,9 +10,9 @@ export const content = {
   pl: {
     seo: {
       title: "Konexa — Prywatny klub networkingowy",
-      ogTitle: "Konexa — Prywatny klub",
+      ogTitle: "Konexa — Prywatny Klub",
       description:
-        "Prawdziwi ludzie, prawdziwe okazje. Poznaj ludzi, z którymi zrobisz realny deal lub nawiążesz przyjaźń.",
+        "Prawdziwi ludzie, prawdziwe okazje. Poznaj ludzi z którymi zrobisz realny deal lub nawiążesz przyjaźń.",
     } satisfies LandingSeo,
     nav: { how: "Jak to działa", why: "Dlaczego Konexa", faq: "FAQ", cta: "Poproś o zaproszenie" },
     hero: {
