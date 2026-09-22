@@ -104,9 +104,12 @@ function PublicProfilePage() {
         {profile.public_web_bio ? (
           <p className="mt-6 max-w-md text-base leading-relaxed">{profile.public_web_bio}</p>
         ) : null}
+        <p className="mt-8 max-w-sm text-sm text-muted-foreground">
+          Opens the Konexa app when installed. Otherwise use the store buttons below.
+        </p>
         <a
           href={openUrl}
-          className="mt-8 inline-flex rounded-full bg-brass px-6 py-3 text-sm font-medium text-navy-deep"
+          className="mt-4 inline-flex rounded-full bg-brass px-6 py-3 text-sm font-medium text-navy-deep"
         >
           Open in Konexa
         </a>
